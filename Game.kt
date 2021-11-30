@@ -11,7 +11,7 @@ fun main() {
     printPlayerStatus(auraColor, isBlessed, name, healthStatus)
 }
 
-//康康你健不健康
+//康康你的身体健不健康
 private fun formatHealthStatus(healthPoints: Int, isBlessed: Boolean) = when (healthPoints) {
     100 -> "is in excellent condition!"
     in 90..99 -> "has a few scratches."
@@ -24,7 +24,7 @@ private fun formatHealthStatus(healthPoints: Int, isBlessed: Boolean) = when (he
     else -> "is in awful condition!"
 }
 
-//角色的基本信息 => js_jbxx
+//角色的基本信息 => js_jbxx(云家园导表有感
 private fun printPlayerStatus(
     auraColor: String,
     isBlessed: Boolean,
