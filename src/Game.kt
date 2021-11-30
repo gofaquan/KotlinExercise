@@ -9,6 +9,9 @@ fun main() {
 
     // Player status 角色的基本信息
     printPlayerStatus(auraColor, isBlessed, name, healthStatus)
+
+    castFireball(2)
+   println(countFireballNum(2))
 }
 
 //康康你健不健康
