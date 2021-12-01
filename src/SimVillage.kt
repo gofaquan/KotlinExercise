@@ -19,7 +19,6 @@ fun configureGreetingFunction(): (String,String) -> String {
 }
 
 
-
 //使用 runSimulation 函数里的值输出房屋的建设成本
 fun printConstructionCost(numBuildings: Int) {
     val cost = 500
