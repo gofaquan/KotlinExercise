@@ -6,7 +6,7 @@ const val MenuLen = 34
 const val CharLen = 4  //~[????]~的长度
 var playerGold = 10 //金币
 var playerSilver = 10 //银币
-
+var patronGold = mutableMapOf<String, Double>("ava" to 6.0)
 
 fun main() {
     println("*** Welcome to Taernyl's Folly ***")
@@ -16,11 +16,11 @@ fun main() {
     menuList.forEach { data ->
         val (type, name, price) = data.split(",")
         //菜单美化带师
-        (1..(MenuLen - CharLen - type.length)/ 2).forEach { _ ->
+        (1..(MenuLen - CharLen - type.length) / 2).forEach { _ ->
             print(" ")
         }
         print("~[$type]~")
-        (1..(MenuLen - CharLen - type.length)/ 2).forEach { _ ->
+        (1..(MenuLen - CharLen - type.length) / 2).forEach { _ ->
             print(" ")
         }
         println()
@@ -72,8 +72,9 @@ private fun placeOrder(menuData: String) {
     println(message)
 
 
-    performPurchase(price.toDouble())
+//    performPurchase(price.toDouble())
 //    performPurchase(price.toDoubleOrNull() ?: 0.0)
+    performPurchase(price.toDouble(), "ava")
 
     val phrase = if (name == "Dragon's Breath") {
         //啊，好好喝的龙之息啊~~~~~~~~~~~
@@ -103,33 +104,37 @@ private fun toDragonSpeak(phrase: String) =
         }
     }
 
-
-fun performPurchase(price: Double) {
-    displayBalance()
-    // 这里的100.0让int转成double，否则 10/100 = 0.1的int等于0
-    val totalPurse = playerGold + (playerSilver / 100.0) //购买力 = 金币 + 银币/100.0,
-    println("Total purse: $totalPurse")
-    println("Purchasing item for $price")
-
-    val remainingBalance = totalPurse - price
-    if (remainingBalance >= 0) {
-        println("Remaining balance: ${"%.2f".format(remainingBalance)}") //小客栈里的交易计算对精度的要求就没那么高
-    } else {
-        println("Total purse too less to purchase the wine!")
-        return
-    }
-    //把购买力换算成原来的金币银币
-    val remainingGold = remainingBalance.toInt()
-//    这里，我们使用了取模运算符%（又叫取余运算符），也就是求两个数相除的余数。% 1 的效
-//    果就是拿掉整数部分值（这部分能被 1 整除），剩下小数部分值。最后，用余数乘以 100，然后
-//    针对 18.99999999999995 调用 roundToInt 函数。该函数四舍五入，得到最近似的整数，所以
-//    剩余的银币数就是 19。
-//    val remainingSilver = (remainingBalance % 1 * 100).roundToInt()
-    val remainingSilver = (remainingBalance % 1 * 100).toInt() //上面四舍五入，我的想法是不能凑成1的银币那肯定不能算的啦
-    playerGold = remainingGold
-    playerSilver = remainingSilver
-    displayBalance()
+//学了map的船新版本
+fun performPurchase(price: Double, patronName: String) {
+    val totalPurse = patronGold.getValue(patronName)
+    patronGold[patronName] = totalPurse - price
 }
+//fun performPurchase(price: Double) {
+//    displayBalance()
+//    // 这里的100.0让int转成double，否则 10/100 = 0.1的int等于0
+//    val totalPurse = playerGold + (playerSilver / 100.0) //购买力 = 金币 + 银币/100.0,
+//    println("Total purse: $totalPurse")
+//    println("Purchasing item for $price")
+//
+//    val remainingBalance = totalPurse - price
+//    if (remainingBalance >= 0) {
+//        println("Remaining balance: ${"%.2f".format(remainingBalance)}") //小客栈里的交易计算对精度的要求就没那么高
+//    } else {
+//        println("Total purse too less to purchase the wine!")
+//        return
+//    }
+//    //把购买力换算成原来的金币银币
+//    val remainingGold = remainingBalance.toInt()
+////    这里，我们使用了取模运算符%（又叫取余运算符），也就是求两个数相除的余数。% 1 的效
+////    果就是拿掉整数部分值（这部分能被 1 整除），剩下小数部分值。最后，用余数乘以 100，然后
+////    针对 18.99999999999995 调用 roundToInt 函数。该函数四舍五入，得到最近似的整数，所以
+////    剩余的银币数就是 19。
+////    val remainingSilver = (remainingBalance % 1 * 100).roundToInt()
+//    val remainingSilver = (remainingBalance % 1 * 100).toInt() //上面四舍五入，我的想法是不能凑成1的银币那肯定不能算的啦
+//    playerGold = remainingGold
+//    playerSilver = remainingSilver
+//    displayBalance()
+//}
 
 private fun displayBalance() {
     println("Player's purse balance: Gold: $playerGold , Silver: $playerSilver")
