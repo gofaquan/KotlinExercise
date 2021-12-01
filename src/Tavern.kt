@@ -2,21 +2,40 @@ import java.io.File
 import kotlin.math.roundToInt
 
 const val TAVERN_NAME = "Taernyl's Folly"  //老板店铺's name
+const val MenuLen = 34
+const val CharLen = 4  //~[????]~的长度
 var playerGold = 10 //金币
 var playerSilver = 10 //银币
 
 
 fun main() {
+    println("*** Welcome to Taernyl's Folly ***")
     val menuList = File("data/tavern-menu-items.txt")
         .readText()
         .split("\n")
-    menuList.forEachIndexed { index, data ->
-        println("$index : $data")
+    menuList.forEach { data ->
+        val (type, name, price) = data.split(",")
+        //菜单美化带师
+        (1..(MenuLen - CharLen - type.length)/ 2).forEach { _ ->
+            print(" ")
+        }
+        print("~[$type]~")
+        (1..(MenuLen - CharLen - type.length)/ 2).forEach { _ ->
+            print(" ")
+        }
+        println()
+        print("$name")
+        (1..MenuLen - price.length - name.length).forEach { _ ->
+            print(".")
+
+        }
+        println("$price")
+
     }
-    val patronList = listOf("Eli",  "Sophie")
-    patronList.forEachIndexed {index,patron ->
-        println("Good evening, #${index+1} $patron")
-    }
+
+
+
+
     placeOrder("shandy,Dragon's Breath,5.91")
 //    placeOrder("elixir,Shirley's Temple,4.12")
 
@@ -111,6 +130,7 @@ fun performPurchase(price: Double) {
     playerSilver = remainingSilver
     displayBalance()
 }
+
 private fun displayBalance() {
     println("Player's purse balance: Gold: $playerGold , Silver: $playerSilver")
 }
