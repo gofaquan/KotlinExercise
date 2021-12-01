@@ -1,3 +1,4 @@
+import java.io.File
 import kotlin.math.roundToInt
 
 const val TAVERN_NAME = "Taernyl's Folly"  //老板店铺's name
@@ -6,6 +7,16 @@ var playerSilver = 10 //银币
 
 
 fun main() {
+    val menuList = File("data/tavern-menu-items.txt")
+        .readText()
+        .split("\n")
+    menuList.forEachIndexed { index, data ->
+        println("$index : $data")
+    }
+    val patronList = listOf("Eli",  "Sophie")
+    patronList.forEachIndexed {index,patron ->
+        println("Good evening, #${index+1} $patron")
+    }
     placeOrder("shandy,Dragon's Breath,5.91")
 //    placeOrder("elixir,Shirley's Temple,4.12")
 
@@ -100,7 +111,6 @@ fun performPurchase(price: Double) {
     playerSilver = remainingSilver
     displayBalance()
 }
-
 private fun displayBalance() {
     println("Player's purse balance: Gold: $playerGold , Silver: $playerSilver")
 }
