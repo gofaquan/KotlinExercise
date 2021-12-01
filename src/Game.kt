@@ -1,17 +1,13 @@
 fun main() {
-    val name = "李剑豪"  //角色名
-    var healthPoints = 89  //血量剩余
-    var isBlessed = true //是否被治愈了
-    val isImmortal = false //是否不死
+    val player = Player()
+    player.healthPoints = 1
     // Aura 角色光环
-    val auraColor = auraColor(isBlessed, healthPoints, isImmortal) //光环颜色
-    val healthStatus = formatHealthStatus(healthPoints, isBlessed) //目前的健康状态
+    val auraColor = auraColor(player.isBlessed, player.healthPoints, player.isImmortal) //光环颜色
+    val healthStatus = formatHealthStatus(player.healthPoints, player.isBlessed) //目前的健康状态
 
     // Player status 角色的基本信息
-    printPlayerStatus(auraColor, isBlessed, name, healthStatus)
+    printPlayerStatus(auraColor, player.isBlessed, player.name, healthStatus)
 
-    castFireball(2)
-   println(countFireballNum(2))
 }
 
 //康康你健不健康
@@ -50,19 +46,5 @@ private fun auraColor(
     return if (auraVisible) "GREEN" else "NONE"
 }
 
-//秘技: 醉酒术！  (给角色喝酒
-private fun castFireball(numFireballs: Int = 2) =
-    println("A glass of Fireball springs into existence. (x$numFireballs)")
 
 
-//秘技: 数酒术！  (数一下角色喝酒数，计算ta的醉酒状态
-private fun countFireballNum(numFireballs: Int) =
-    when (numFireballs) {
-//      醉酒指标值        醉酒状态
-        in 1..10 -> "tipsy（微醺）"
-        in 11..20 -> "sloshed（微醉）"
-        in 21..30 -> "soused（醉了）"
-        in 31..40 -> "stewed（大醉）"
-        in 41..50 -> "t0aSt3d（烂醉如泥）"
-        else -> "你是真寄吧能喝啊，我不数了"
-    }

@@ -8,6 +8,12 @@ var playerGold = 10 //金币
 var playerSilver = 10 //银币
 var patronGold = mutableMapOf<String, Double>("ava" to 6.0)
 
+//TODO
+//身无分文的人不应来小客栈消费。事实上，这样的人也不应在此逗留——小客栈门卫应负责
+//这些事。如果顾客钱包余额不足，就从 uniquePatrons 和 patronGold 中删除他们的信息，把
+//他们请出小客栈。
+
+
 fun main() {
     println("*** Welcome to Taernyl's Folly ***")
     val menuList = File("data/tavern-menu-items.txt")
@@ -34,11 +40,9 @@ fun main() {
     }
 
 
-
-
     placeOrder("shandy,Dragon's Breath,5.91")
 //    placeOrder("elixir,Shirley's Temple,4.12")
-
+    displayPatronBalances()
 
     //小客栈，给顾客点单
     var beverage = readLine()
@@ -136,6 +140,8 @@ fun performPurchase(price: Double, patronName: String) {
 //    displayBalance()
 //}
 
-private fun displayBalance() {
-    println("Player's purse balance: Gold: $playerGold , Silver: $playerSilver")
+private fun displayPatronBalances() {
+    patronGold.forEach { patron, balance ->
+        println("$patron, balance: ${"%.2f".format(balance)}")
+    }
 }
