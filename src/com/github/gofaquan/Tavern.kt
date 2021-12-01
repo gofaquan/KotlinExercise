@@ -1,5 +1,6 @@
+package com.github.gofaquan
+
 import java.io.File
-import kotlin.math.roundToInt
 
 const val TAVERN_NAME = "Taernyl's Folly"  //老板店铺's name
 const val MenuLen = 34
@@ -10,7 +11,7 @@ var patronGold = mutableMapOf<String, Double>("ava" to 6.0)
 
 //TODO
 //身无分文的人不应来小客栈消费。事实上，这样的人也不应在此逗留——小客栈门卫应负责
-//这些事。如果顾客钱包余额不足，就从 uniquePatrons 和 patronGold 中删除他们的信息，把
+//这些事。如果顾客钱包余额不足，就从 uniquePatrons 和 com.github.gofaquan.getPatronGold 中删除他们的信息，把
 //他们请出小客栈。
 
 
@@ -41,7 +42,7 @@ fun main() {
 
 
     placeOrder("shandy,Dragon's Breath,5.91")
-//    placeOrder("elixir,Shirley's Temple,4.12")
+//    com.github.gofaquan.placeOrder("elixir,Shirley's Temple,4.12")
     displayPatronBalances()
 
     //小客栈，给顾客点单
@@ -76,13 +77,13 @@ private fun placeOrder(menuData: String) {
     println(message)
 
 
-//    performPurchase(price.toDouble())
-//    performPurchase(price.toDoubleOrNull() ?: 0.0)
+//    com.github.gofaquan.performPurchase(price.toDouble())
+//    com.github.gofaquan.performPurchase(price.toDoubleOrNull() ?: 0.0)
     performPurchase(price.toDouble(), "ava")
 
     val phrase = if (name == "Dragon's Breath") {
         //啊，好好喝的龙之息啊~~~~~~~~~~~
-//        "Madrigal exclaims ${toDragonSpeak("Ah, delicious $name!")}"
+//        "Madrigal exclaims ${com.github.gofaquan.toDragonSpeak("Ah, delicious $name!")}"
         "Madrigal exclaims ${toDragonSpeak("DRAGON'S BREATH: IT'S GOT WHAT ADVENTURERS CRAVE! \n")}"
     } else {
         "Madrigal says: Thanks for the $name."
@@ -113,10 +114,10 @@ fun performPurchase(price: Double, patronName: String) {
     val totalPurse = patronGold.getValue(patronName)
     patronGold[patronName] = totalPurse - price
 }
-//fun performPurchase(price: Double) {
+//fun com.github.gofaquan.performPurchase(price: Double) {
 //    displayBalance()
 //    // 这里的100.0让int转成double，否则 10/100 = 0.1的int等于0
-//    val totalPurse = playerGold + (playerSilver / 100.0) //购买力 = 金币 + 银币/100.0,
+//    val totalPurse = com.github.gofaquan.getPlayerGold + (com.github.gofaquan.getPlayerSilver / 100.0) //购买力 = 金币 + 银币/100.0,
 //    println("Total purse: $totalPurse")
 //    println("Purchasing item for $price")
 //
@@ -135,8 +136,8 @@ fun performPurchase(price: Double, patronName: String) {
 ////    剩余的银币数就是 19。
 ////    val remainingSilver = (remainingBalance % 1 * 100).roundToInt()
 //    val remainingSilver = (remainingBalance % 1 * 100).toInt() //上面四舍五入，我的想法是不能凑成1的银币那肯定不能算的啦
-//    playerGold = remainingGold
-//    playerSilver = remainingSilver
+//    com.github.gofaquan.getPlayerGold = remainingGold
+//    com.github.gofaquan.getPlayerSilver = remainingSilver
 //    displayBalance()
 //}
 

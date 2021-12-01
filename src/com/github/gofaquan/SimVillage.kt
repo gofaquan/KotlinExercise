@@ -1,3 +1,5 @@
+package com.github.gofaquan
+
 fun main() {
 //欢迎新镇长
 runSimulation()
@@ -19,7 +21,7 @@ fun configureGreetingFunction(): (String,String) -> String {
 }
 
 
-//使用 runSimulation 函数里的值输出房屋的建设成本
+//使用 com.github.gofaquan.runSimulation 函数里的值输出房屋的建设成本
 fun printConstructionCost(numBuildings: Int) {
     val cost = 500
     println("construction cost: ${cost * numBuildings}")

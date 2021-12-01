@@ -1,14 +1,40 @@
+package com.github.gofaquan
+
 class Player {
     val name = "李剑豪"  //角色名
         get() = field.capitalize()  //getter
 
     var healthPoints = 89  //血量剩余
-         set(value) {//setter
-            field = value-1  //就要扣你一滴血，嘿嘿
+        set(value) {//setter
+            field = value - 1  //就要扣你一滴血，嘿嘿
             println(field)
         }
     var isBlessed = true //是否被治愈了
-    val isImmortal = false //是否不死
+    private val isImmortal = false //是否不死
+
+
+    //康康你健不健康
+     fun formatHealthStatus() = when (healthPoints) {
+        100 -> "is in excellent condition!"
+        in 90..99 -> "has a few scratches."
+        in 75..89 -> if (isBlessed) {
+            "has some minor wounds, but is healing quite quickly!"
+        } else {
+            "has some minor wounds."
+        }
+        in 15..74 -> "looks pretty hurt."
+        else -> "is in awful condition!"
+    }
+
+
+
+
+    //装杯光环的获取
+     fun auraColor(): String {
+        val auraVisible = isBlessed && healthPoints > 50 || isImmortal
+        return if (auraVisible) "GREEN" else "NONE"
+    }
+
 
     //秘技: 醉酒术！  (给角色喝酒
     private fun castFireball(numFireballs: Int = 2) =
@@ -25,6 +51,8 @@ class Player {
             in 41..50 -> "t0aSt3d（烂醉如泥）"
             else -> "你是真寄吧能喝啊，我不数了"
         }
+
+
 }
 
 //修 饰 符 描 述
