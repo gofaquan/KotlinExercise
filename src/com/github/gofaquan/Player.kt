@@ -4,10 +4,10 @@ import java.io.File
 
 class Player(
     _name: String,
-    var healthPoints: Int = 100,//血量剩余,爷开局给你100滴血
+    override var healthPoints: Int = 100,//血量剩余,爷开局给你100滴血
     var isBlessed: Boolean,//是否被治愈了
-    private val isImmortal: Boolean//是否不死
-) {
+    private val isImmortal: Boolean, //是否不死
+): Fightable {
     var name = _name //角色名 + hometown 区分不同地方来的hero们
         get() = "${field.capitalize()} of $hometown" //getter
 
@@ -75,6 +75,23 @@ class Player(
             in 41..50 -> "t0aSt3d（烂醉如泥）"
             else -> "你是真寄吧能喝啊，我不数了"
         }
+
+    override val diceCount: Int
+        get() = TODO("Not yet implemented")
+    override val diceSides: Int
+        get() = TODO("Not yet implemented")
+    override val damageRoll: Int
+        get() = TODO("Not yet implemented")
+
+    override fun attack(opponent: Fightable): Int {
+        val damageDealt = if (isBlessed) {
+            damageRoll * 2
+        } else {
+            damageRoll
+        }
+        opponent.healthPoints -= damageDealt
+        return damageDealt
+    }
 
 
 }
