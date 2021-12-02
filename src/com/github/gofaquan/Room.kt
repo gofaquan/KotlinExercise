@@ -1,6 +1,6 @@
 package com.github.gofaquan
 
-open class Room(private val name: String) {
+open class Room(val name: String) {
     protected open val dangerLevel = 5
     fun description() = "Room: $name\n" +
             "Danger level: $dangerLevel"
