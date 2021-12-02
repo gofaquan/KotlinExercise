@@ -11,6 +11,10 @@ class Player(
     var name = _name //角色名 + hometown 区分不同地方来的hero们
         get() = "${field.capitalize()} of $hometown" //getter
 
+
+    var currentPosition = Coordinate(0, 0)
+
+
     private val hometown: String = selectHometown()
     private fun selectHometown() = File("data/towns.txt")
         .readText()
@@ -57,7 +61,7 @@ class Player(
 
 
     //秘技: 醉酒术！  (给角色喝酒
-    private fun castFireball(numFireballs: Int = 2) =
+    fun castFireball(numFireballs: Int = 2) =
         println("A glass of Fireball springs into existence. (x$numFireballs)")
 
     //秘技: 数酒术！  (数一下角色喝酒数，计算ta的醉酒状态
