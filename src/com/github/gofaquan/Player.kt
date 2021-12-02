@@ -4,14 +4,14 @@ import java.io.File
 
 class Player(
     _name: String,
-    var healthPoints: Int=100,//血量剩余,爷开局给你100滴血
+    var healthPoints: Int = 100,//血量剩余,爷开局给你100滴血
     var isBlessed: Boolean,//是否被治愈了
     private val isImmortal: Boolean//是否不死
 ) {
     var name = _name //角色名 + hometown 区分不同地方来的hero们
         get() = "${field.capitalize()} of $hometown" //getter
 
-    private val hometown: String= selectHometown()
+    private val hometown: String = selectHometown()
     private fun selectHometown() = File("data/towns.txt")
         .readText()
         .split("\n")

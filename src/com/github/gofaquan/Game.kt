@@ -1,14 +1,17 @@
 package com.github.gofaquan
 
 fun main() {
-    val player = Player("李剑豪", 89, true, false)
+    var sword = Sword("lijinhao")
+    println(sword.name)
+    val player = Player("faq", 89, true, false)
+
     var player2 = Player("李健豪")
     player.healthPoints = 1
     // Aura 角色光环
     val auraColor = player.auraColor() //光环颜色
     val healthStatus = player.formatHealthStatus() //目前的健康状态
 
-    // com.github.gofaquan.Player status 角色的基本信息
+    // Player status 角色的基本信息
     printPlayerStatus(player)
 
 }
@@ -19,5 +22,6 @@ private fun printPlayerStatus(player: Player) {
         "(Aura: ${player.auraColor()}) " +
                 "(Blessed: ${if (player.isBlessed) "YES" else "NO"})"
     )
-    println("${player.name} ${player.formatHealthStatus()}")
+    print(player.name)
+//    println(player.formatHealthStatus())
 }
