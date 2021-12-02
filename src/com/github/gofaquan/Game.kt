@@ -1,7 +1,8 @@
 package com.github.gofaquan
 
 fun main() {
-    val player = Player()
+    val player = Player("李剑豪", 89, true, false)
+    var player2 = Player("李健豪")
     player.healthPoints = 1
     // Aura 角色光环
     val auraColor = player.auraColor() //光环颜色

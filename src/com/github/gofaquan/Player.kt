@@ -1,20 +1,42 @@
 package com.github.gofaquan
 
-class Player {
-    val name = "李剑豪"  //角色名
-        get() = field.capitalize()  //getter
+import java.io.File
 
-    var healthPoints = 89  //血量剩余
-        set(value) {//setter
-            field = value - 1  //就要扣你一滴血，嘿嘿
-            println(field)
-        }
-    var isBlessed = true //是否被治愈了
-    private val isImmortal = false //是否不死
+class Player(
+    _name: String,
+    var healthPoints: Int=100,//血量剩余,爷开局给你100滴血
+    var isBlessed: Boolean,//是否被治愈了
+    private val isImmortal: Boolean//是否不死
+) {
+    var name = _name //角色名 + hometown 区分不同地方来的hero们
+        get() = "${field.capitalize()} of $hometown" //getter
 
+    private val hometown: String= selectHometown()
+    private fun selectHometown() = File("data/towns.txt")
+        .readText()
+        .split("\n")
+        .shuffled()   //Returns a new list with the elements of this list randomly shuffled.
+        .first()
+
+
+    //构造器
+    constructor(name: String) : this(
+        name,
+        isBlessed = true,
+        isImmortal = false
+    ) {
+        if (name.toLowerCase() == "kar") healthPoints = 40
+    }
+
+    //要成功构建 Player 类，就应该满足这样的前提条件：
+    //玩家在游戏开局时的健康值应该大于 0 && 他的名字不能为空
+    init {
+        require(healthPoints > 0) { "healthPoints must be greater than zero." }
+        require(name.isNotBlank()) { "Player must have a name." }
+    }
 
     //康康你健不健康
-     fun formatHealthStatus() = when (healthPoints) {
+    fun formatHealthStatus() = when (healthPoints) {
         100 -> "is in excellent condition!"
         in 90..99 -> "has a few scratches."
         in 75..89 -> if (isBlessed) {
@@ -27,10 +49,8 @@ class Player {
     }
 
 
-
-
     //装杯光环的获取
-     fun auraColor(): String {
+    fun auraColor(): String {
         val auraVisible = isBlessed && healthPoints > 50 || isImmortal
         return if (auraVisible) "GREEN" else "NONE"
     }
