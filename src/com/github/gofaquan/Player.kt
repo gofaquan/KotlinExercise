@@ -76,12 +76,10 @@ class Player(
             else -> "你是真寄吧能喝啊，我不数了"
         }
 
-    override val diceCount: Int
-        get() = TODO("Not yet implemented")
-    override val diceSides: Int
-        get() = TODO("Not yet implemented")
-    override val damageRoll: Int
-        get() = TODO("Not yet implemented")
+    override val diceCount: Int = 3
+    override val diceSides: Int = 6
+
+
 
     override fun attack(opponent: Fightable): Int {
         val damageDealt = if (isBlessed) {
